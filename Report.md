@@ -20,7 +20,9 @@ The following two section about future map generating and livable place searchin
 The second section is about the livable spaces searching and it is more like an application of my evaluation model. I will first do a region evaluation to find the high value and low human activity areas like plain and spilt these area into thousands of little square images with features of weather, elevation map and so on. After that, I will apply these features to my evaluation model and generate a list of hypo values. The places with highest value may be taken into consideration to build a city.
 
 *****************************
-## Part 1: City Data Preprocessing
+## Part 1: City Data Collecting and Preprocessing
+* In this project, all data is raw, collected and preprocessed by myself. 
+> Numeric Data:
 * The 4054 cities population and coordinate data is from [ergebnis](https://fingolas.carto.com/tables/ergebnis/public) publiced in 2014
 * The 313 cities GDP and corresponding feature (Georgraphic and administrative forms) data is from [OECD](https://stats.oecd.org/Index.aspx?QueryId=51329#) 
 * There are also many other important features may help me to get higher accuracy in city GDP prediction. However, my focus points should be the model construction and optimization and is not familiar to deal with the deep city statistic such as "population by age" or "labour markert".
@@ -30,13 +32,23 @@ The second section is about the livable spaces searching and it is more like an 
   2. Mergeing city feature with city gdp, population and coordinate with city name regex and finally get 229 cities data.
   3. Changing all feature data type into numpy.float64.
   4. Save the new cities data in .csv format for future usage.
-  (The feature normalization part is included in the model construction part)
-  
-## Part 2: Support Vector Regression
-* Use standard normalization to all features except coordinate feature and number counting feature.
+  5. When applying this data, I use standard normalization to all features except coordinate feature and number counting feature.
 #
       def stdScl(F):
         F = (F - np.average(F))/np.std(F)
         return F
 
+> Map Data:
+* With the name of 4054 cities (collected in the numeric part), I insert it into my google map API. The format is ```https://maps.googleapis.com/maps/api/staticmap?&center=city name &zoom=10&format=png&maptype=roadmap&style=feature:road|visibility:off&style=element:labels%7Cvisibility:off&size=640x640&scale=2&key=MyKe```
+* The city name can also be replaced by coordinate likes (54.321,-12.345).
+* With this url, you can easily adjust the format of map image you want. For instance, you can choose maptype = "roadmap" or "satellite" and adjust the zoom to get the scale you want for the city map.
+* In my project, I coolect four kind of map data: roadmap, roadmap without road, roadmap withou map and the satellite map.
+## Part 2: Support Vector Regression
+* I implement my own [SMO function](https://github.com/unlimitediw/MLGWU/blob/master/ML/CS6364_HW3_SVM_Handwork.py) for weight tunning in this part. But still use the sklearn.svm to train my model for higher speed.
+* The score of it is about 0.5823. And the validate function is below:
+#
+      score = abs(k[i] - yTest[i])/yTest[i])
+
+## Part 3: MultiLayer Perceptron
+* In this part,
 
