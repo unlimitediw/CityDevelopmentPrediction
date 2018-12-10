@@ -50,5 +50,5 @@ The second section is about the livable spaces searching and it is more like an 
       score = abs(k[i] - yTest[i])/yTest[i])
 
 ## Part 3: MultiLayer Perceptron
-* In this part,
+* In this part, I implement my own multilayer perceptron model for both regression and classification usage. It can be used with the [```MLPGenerator``` class and ```trainNN``` API](https://github.com/unlimitediw/CitiesPrediction/blob/master/MLPGenerator.py)
 
