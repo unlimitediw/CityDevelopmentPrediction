@@ -18,3 +18,25 @@ More specifically, in the part of classification problem with numeric and catego
 The following two section about future map generating and livable place searching is more productive and interesting. In the part of map generating, I will use a unsupervised learning algorithm [GAN](https://arxiv.org/pdf/1406.2661.pdf)(Generative adversarial network) and more specifically use the [Image to Image Translation with a conditional generative adversarial network](https://arxiv.org/pdf/1611.07004.pdf) and [cycle-consistent adversarial network](https://arxiv.org/pdf/1703.10593.pdf). GAN algorithm includes two parts which one for generating fake image and one for discriminating the fake image from the real image and play a minmax game. In my model, I will first train the GAN model with data A,B that A has the real feature and real image while B has the real features and generates the fake image. If the model is trained successfully, I can use this model and the predicted features from RNN to generate the future map. May be we can have a view of the future world and it will work well especially in the developing countries since it can takes the developed countries data as a template. 
 
 The second section is about the livable spaces searching and it is more like an application of my evaluation model. I will first do a region evaluation to find the high value and low human activity areas like plain and spilt these area into thousands of little square images with features of weather, elevation map and so on. After that, I will apply these features to my evaluation model and generate a list of hypo values. The places with highest value may be taken into consideration to build a city.
+
+*****************************
+## Part 1: City Data Preprocessing
+* The 4054 cities population and coordinate data is from [ergebnis](https://fingolas.carto.com/tables/ergebnis/public) publiced in 2014
+* The 313 cities GDP and corresponding feature (Georgraphic and administrative forms) data is from [OECD](https://stats.oecd.org/Index.aspx?QueryId=51329#) 
+* There are also many other important features may help me to get higher accuracy in city GDP prediction. However, my focus points should be the model construction and optimization and is not familiar to deal with the deep city statistic such as "population by age" or "labour markert".
+* My Data Preprocessing for combining these two .cvs file is [datapreprocessing](https://github.com/unlimitediw/DataSearch-Preprocessing/blob/master/DataPreprocessing.py)
+* The data preprocessing includes:
+  1. Removing Nan value.
+  2. Mergeing city feature with city gdp, population and coordinate with city name regex and finally get 229 cities data.
+  3. Changing all feature data type into numpy.float64.
+  4. Save the new cities data in .csv format for future usage.
+  (The feature normalization part is included in the model construction part)
+  
+## Part 2: Support Vector Regression
+* Use standard normalization to all features except coordinate feature and number counting feature.
+#
+      def stdScl(F):
+        F = (F - np.average(F))/np.std(F)
+        return F
+
+
