@@ -51,4 +51,27 @@ The second section is about the livable spaces searching and it is more like an 
 
 ## Part 3: MultiLayer Perceptron
 * In this part, I implement my own multilayer perceptron model for both regression and classification usage. It can be used with the [```MLPGenerator``` class and ```trainNN``` API](https://github.com/unlimitediw/CitiesPrediction/blob/master/MLPGenerator.py)
+* The score of it is about 0.4
+
+## Part 4: Convolutional Neural Network Regression
+
+## Part 5: Combining Map Image Feature with Numeric Feature to Predict GDP.
+
+## Part 5: Map Generation with Cycle GAN
+
+## Future Part:
+* Due to lack of history continuous data, It is very hard to apply Recursive Neural Network to predict the future development.
+* I don't have enough time to do the full world map searching part to find the livable place.
+* Apply It to AWS SageMaker. In my distributed course, I just learned how to use some techniques such as docker containers, spark and Sagemaker and I have tried to train and deployment some machine learning model on the website with SageMaker. In the future, I will combine it with this project.
+
+## Reference:
+1. http://cs229.stanford.edu/materials/smo.pdf
+2. [Cycle GAN](https://arxiv.org/pdf/1703.10593.pdf)
+3. [GAN](https://arxiv.org/pdf/1406.2661.pdf)
+4. 
+
+## Data Source
+1. Google
+2. [OECD](https://stats.oecd.org/Index.aspx?QueryId=51329#) 
+3. [ergebnis](https://fingolas.carto.com/tables/ergebnis/public)
 
