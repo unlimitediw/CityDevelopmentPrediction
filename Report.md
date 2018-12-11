@@ -26,6 +26,12 @@
 
 > What I want to do
 
+* City Features to GDP  
+![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/FeaturesToGDP.png)
+
+* Map to Population  
+![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/MapToPopulation.png)
+
 * Background to RoadMap  
 ![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/BackToMap.png)
 
