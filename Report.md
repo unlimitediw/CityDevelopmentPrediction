@@ -75,3 +75,14 @@ The second section is about the livable spaces searching and it is more like an 
 2. [OECD](https://stats.oecd.org/Index.aspx?QueryId=51329#) 
 3. [ergebnis](https://fingolas.carto.com/tables/ergebnis/public)
 
+## What I learn from this project
+* Google Cloud Platform API
+* AWS SageMaker
+* Multithreading in Python
+* OOP programming in Python
+* VGG 19 CNN
+* Multilayer perceptron for regression
+* Support Vector Regression
+* PCA for RGB image
+* Pandas and Numpy skills for data preprocessing
+* 
