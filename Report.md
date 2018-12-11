@@ -15,7 +15,7 @@
 ![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/LosAngelesSatellite.png)  ![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/EindhovenSatellite.png) 
 
 * Los Angeles only has 144,140 population. What is the problem?
-- I am using python regex to match and combine cites features from different files. There are two cities named with Los Angeles, One is in United States with 3,884,307 population and the other one is in Chile. To remove these wrong data file, I select use the double check with both cities name and countries at the data preprocessing part.
+- I use python regex to match and combine cites features from different files. There are two cities named with Los Angeles, One is in United States with 3,884,307 population and the other one is in Chile. To remove these wrong data file, I select use the double check with both cities name and countries at the data preprocessing part.
 
 * Los Angeles and Eindhoven City Features Comparison  
 ![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/LosEnCityFeatures.png)
