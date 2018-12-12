@@ -86,12 +86,12 @@ The second section is about the livable spaces searching and it is more like an 
 * After multiple C trying with 10-cross validation, I select C = 90000.
 * rbf is basically better than poly
 * Larger training set can avoid overfitting
-* The score of it is about 0.4736 for 10-cross validation. And the score function is below:
+* The score of it is about 0.43 for 10-cross validation. And the score function is below:
 #
       score = abs(k[i] - yTest[i])/yTest[i])
 * Learning Curve with different C value:
 ![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/SVMLcurveCValue.png)
-* Learning Curve with different training data size:
+* Learning Curve with different training data size (this curve is with seed = 3, I try many seeds, this is a bad one. However, at least it is a random choose point. The reason that 80% data validation error is larger than 60% one is that my dataset is too small (229 cities). There is a large flictuation for different random setting):
 ![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/SVMLcurveSize.png)
 
 
