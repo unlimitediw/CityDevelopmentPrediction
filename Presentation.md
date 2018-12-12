@@ -94,7 +94,8 @@
 ## Part 4: Convolutional Neural Network Regression
 0.91 to 0.935 for test and 0.93 for training data, very good.
 [CNNCoding part](https://github.com/unlimitediw/CitiesPrediction/blob/master/mapToGDP.py)
-![Test Matrix](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/TestMatrix.png)  
+[Architecture](https://www.researchgate.net/figure/llustration-of-the-network-architecture-of-VGG-19-model-conv-means-convolution-FC-means_fig2_325137356)
+![Test Matrix](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/TestMatrix.png)
 ![Train Matrix](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/TrainMatrix.png)   
 
 ## Part 5: Combining Map Image Feature with Numeric Feature to Predict GDP.
