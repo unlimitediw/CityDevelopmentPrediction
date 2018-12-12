@@ -78,7 +78,7 @@
 #
       score = abs(k[i] - yTest[i])/yTest[i])
       # I finally decided to use yTest rather than max(yTest,hypo) because it can better fit my lost function. The hypo can be small but shouldn't be too large. If use max(yTest,hypo) the validation error for both svm and MLP will be about 0.3 and will not change.
-* Learning Curve with different C value:
+* Learning Curve with different C value: (Y unit is 'abs(hypo - y) / y', just wrong writing)
 ![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/SVMLcurveCValue.png)
 * Learning Curve with different training data size (this curve is with seed = 3, I try many seeds, this is a bad one. However, at least it is a random choose point. The reason that 80% data validation error is larger than 60% one is that my dataset is too small (229 cities). There is a large flictuation for different random setting):
 ![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/SVMLcurveSize.png)
