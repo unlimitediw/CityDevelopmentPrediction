@@ -144,7 +144,6 @@ Not start yet.
 1. http://cs229.stanford.edu/materials/smo.pdf
 2. [Cycle GAN](https://arxiv.org/pdf/1703.10593.pdf)
 3. [GAN](https://arxiv.org/pdf/1406.2661.pdf)
-4. 
 
 ## Data Source
 1. Google
