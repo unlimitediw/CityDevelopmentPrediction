@@ -64,10 +64,11 @@
 * The city name can also be replaced by coordinate likes (54.321,-12.345).
 * With this url, you can easily adjust the format of map image you want. For instance, you can choose maptype = "roadmap" or "satellite" and adjust the zoom to get the scale you want for the city map.
 * In my project, I coolect four kind of map data: roadmap, roadmap without road, roadmap withou map and the satellite map.
+* I also used 60 threads to collect the data to improve speed.
 * The collecting tool is [my Search.py](https://github.com/unlimitediw/DataSearch-Preprocessing/blob/master/Search.py)
 ## Part 2: Support Vector Regression
 * I implement my own [SMO function](https://github.com/unlimitediw/MLGWU/blob/master/ML/CS6364_HW3_SVM_Handwork.py) for weight tunning in this part. But still use the sklearn.svm to train my model for higher speed.
-* After multiple C trying with 10-cross validation, I select C = 90000.
+* After multiple C trying with 10-cross validation, I select C = 90,000. [my own k-fold api]()
 * rbf is basically better than poly
 * Larger training set can avoid overfitting
 * The score of it is about 0.43 for 10-cross validation. And the score function is below:
@@ -87,16 +88,21 @@
 * With 6 layer network (9,15,25,12,6,1) 100 iter. The validation score is 0.3853, The train score is 0.3365
 * I found that set too many layer may let the model 
 * With 8 layer network (9,15,25,35,24,18,12,6,1), the model can not converge and optimization ends immeadiately. It is due to too small dataset for a neural network.
+* I also found that with more layer and higher scale for each layer, the result may fixed to some value. I havn't completed understand it now but I try to figure out last layers in my MLP. [My layer neuron checking](https://github.com/unlimitediw/CitiesPrediction/blob/master/CheckNN.py)
 
 
 ## Part 4: Convolutional Neural Network Regression
+0.91 to 0.935 for test and 0.93 for training data, very good.
+![CNNCoding part](https://github.com/unlimitediw/CitiesPrediction/blob/master/mapToGDP.py)
 
 ## Part 5: Combining Map Image Feature with Numeric Feature to Predict GDP.
+Not start yet.
 
 ## Part 5: Map Generation with Cycle GAN
+[Junyanz's Model](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
 
 ## Future Part:
-* Due to lack of history continuous data, It is very hard to apply Recursive Neural Network to predict the future development.
+* Due to lack of history continuous data, It is very hard to apply Recursive Neural Network to predict the future development. But now I also found it from OCED, so it may start in the future.
 * I don't have enough time to do the full world map searching part to find the livable place.
 * Apply It to AWS SageMaker. In my distributed course, I just learned how to use some techniques such as docker containers, spark and Sagemaker and I have tried to train and deployment some machine learning model on the website with SageMaker. In the future, I will combine it with this project.
 
