@@ -60,10 +60,11 @@
         return F/scale
         
 > Map Data:
-* With the name of 4054 cities (collected in the numeric part), I insert it into my google map API. The format is https://maps.googleapis.com/maps/api/staticmap?&center=beijing&zoom=10&format=png&maptype=roadmap&style=feature:road|visibility:off&style=element:labels%7Cvisibility:off&size=640x640&scale=2&key=MyKe
+* With the name of 4054 cities (collected in the numeric part), I insert it into my google map API. The format is https://maps.googleapis.com/maps/api/staticmap?&center=beijing&zoom=10&format=png&maptype=roadmap&style=feature:road|visibility:off&style=element:labels%7Cvisibility:off&size=640x640&scale=2&key=AIzaSyCBj1rX0X4g7KaGueU1du_l4jzGfIQO1NY
 * The city name can also be replaced by coordinate likes (54.321,-12.345).
 * With this url, you can easily adjust the format of map image you want. For instance, you can choose maptype = "roadmap" or "satellite" and adjust the zoom to get the scale you want for the city map.
 * In my project, I coolect four kind of map data: roadmap, roadmap without road, roadmap withou map and the satellite map.
+* The collecting tool is [my Search.py](https://github.com/unlimitediw/DataSearch-Preprocessing/blob/master/Search.py)
 ## Part 2: Support Vector Regression
 * I implement my own [SMO function](https://github.com/unlimitediw/MLGWU/blob/master/ML/CS6364_HW3_SVM_Handwork.py) for weight tunning in this part. But still use the sklearn.svm to train my model for higher speed.
 * After multiple C trying with 10-cross validation, I select C = 90000.
