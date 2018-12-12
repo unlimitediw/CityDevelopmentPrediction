@@ -73,7 +73,9 @@ The second section is about the livable spaces searching and it is more like an 
       def stdScl(F):
         F = (F - np.average(F))/np.std(F)
         return F
-
+      def nor(F,scale):
+        return F/scale
+        
 > Map Data:
 * With the name of 4054 cities (collected in the numeric part), I insert it into my google map API. The format is https://maps.googleapis.com/maps/api/staticmap?&center=beijing&zoom=10&format=png&maptype=roadmap&style=feature:road|visibility:off&style=element:labels%7Cvisibility:off&size=640x640&scale=2&key=MyKe
 * The city name can also be replaced by coordinate likes (54.321,-12.345).
@@ -81,9 +83,18 @@ The second section is about the livable spaces searching and it is more like an 
 * In my project, I coolect four kind of map data: roadmap, roadmap without road, roadmap withou map and the satellite map.
 ## Part 2: Support Vector Regression
 * I implement my own [SMO function](https://github.com/unlimitediw/MLGWU/blob/master/ML/CS6364_HW3_SVM_Handwork.py) for weight tunning in this part. But still use the sklearn.svm to train my model for higher speed.
-* The score of it is about 0.5823. And the validate function is below:
+* After multiple C trying with 10-cross validation, I select C = 90000.
+* rbf is basically better than poly
+* Larger training set can avoid overfitting
+* The score of it is about 0.4736 for 10-cross validation. And the score function is below:
 #
       score = abs(k[i] - yTest[i])/yTest[i])
+* Learning Curve with different C value:
+![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/SVMLcurveCValue.png)
+* Learning Curve with different training data size:
+![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/SVMLcurveSize.png)
+
+
 
 ## Part 3: MultiLayer Perceptron
 * In this part, I implement my own multilayer perceptron model for both regression and classification usage. It can be used with the [```MLPGenerator``` class and ```trainNN``` API](https://github.com/unlimitediw/CitiesPrediction/blob/master/MLPGenerator.py)
