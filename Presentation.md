@@ -68,6 +68,7 @@
 * The collecting tool is [my Search.py](https://github.com/unlimitediw/DataSearch-Preprocessing/blob/master/Search.py)
 ## Part 2: Support Vector Regression
 * I implement my own [SMO function](https://github.com/unlimitediw/MLGWU/blob/master/ML/CS6364_HW3_SVM_Handwork.py) for weight tunning in this part. But still use the sklearn.svm to train my model for higher speed.
+* [SVR Reference](https://www.csie.ntu.edu.tw/~cjlin/papers/libsvm.pdf)
 * After multiple C trying with 10-cross validation, I select C = 90,000. [my own k-fold api]()
 * rbf is basically better than poly
 * Larger training set can avoid overfitting
