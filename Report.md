@@ -89,6 +89,7 @@ The second section is about the livable spaces searching and it is more like an 
 * The score of it is about 0.43 for 10-cross validation. And the score function is below:
 #
       score = abs(k[i] - yTest[i])/yTest[i])
+      # I finally decided to use yTest rather than max(yTest,hypo) because it can better fit my lost function. The hypo can be small but shouldn't be too large. If use max(yTest,hypo) the validation error for both svm and MLP will be about 0.3 and will not change.
 * Learning Curve with different C value:
 ![](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/SVMLcurveCValue.png)
 * Learning Curve with different training data size (this curve is with seed = 3, I try many seeds, this is a bad one. However, at least it is a random choose point. The reason that 80% data validation error is larger than 60% one is that my dataset is too small (229 cities). There is a large flictuation for different random setting):
@@ -98,7 +99,11 @@ The second section is about the livable spaces searching and it is more like an 
 
 ## Part 3: MultiLayer Perceptron
 * In this part, I implement my own multilayer perceptron model for both regression and classification usage. It can be used with the [```MLPGenerator``` class and ```trainNN``` API](https://github.com/unlimitediw/CitiesPrediction/blob/master/MLPGenerator.py)
-* The score of it is about 0.4
+* The validation score of it is about 0.8, train score is about 0.3 with (9,6,1) on 10-cross validation and 100 iter. The training is slow with cross validation and different size so I may supplement the learning curve in the future.
+* With 6 layer network (9,15,25,12,6,1) 100 iter. The validation score is 0.3853, The train score is 0.3365
+* I found that set too many layer may let the model 
+* With 8 layer network (9,15,25,35,24,18,12,6,1), the model can not converge and optimization ends immeadiately. It is due to too small dataset for a neural network.
+
 
 ## Part 4: Convolutional Neural Network Regression
 
