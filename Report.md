@@ -77,7 +77,7 @@ The second section is about the livable spaces searching and it is more like an 
         return F/scale
         
 > Map Data:
-* With the name of 4054 cities (collected in the numeric part), I insert it into my google map API. The format is https://maps.googleapis.com/maps/api/staticmap?&center=beijing&zoom=10&format=png&maptype=roadmap&style=feature:road|visibility:off&style=element:labels%7Cvisibility:off&size=640x640&scale=2&key=MyKe
+* With the name of 4054 cities (collected in the numeric part), I insert it into my google map API. The format is https://maps.googleapis.com/maps/api/staticmap?&center=beijing&zoom=10&format=png&maptype=roadmap&style=feature:road|visibility:off&style=element:labels%7Cvisibility:off&size=640x640&scale=2&key=MyKey
 * The city name can also be replaced by coordinate likes (54.321,-12.345).
 * With this url, you can easily adjust the format of map image you want. For instance, you can choose maptype = "roadmap" or "satellite" and adjust the zoom to get the scale you want for the city map.
 * In my project, I coolect four kind of map data: roadmap, roadmap without road, roadmap withou map and the satellite map.
