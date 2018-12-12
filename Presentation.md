@@ -86,6 +86,7 @@
 
 
 ## Part 3: MultiLayer Perceptron
+* Try different activation function sigmoid, relu and tanh.
 * In this part, I implement my own multilayer perceptron model for both regression and classification usage. It can be used with the [```MLPGenerator``` class and ```trainNN``` API](https://github.com/unlimitediw/CitiesPrediction/blob/master/MLPGenerator.py)
 * The validation score of it is about 0.8, train score is about 0.3 with (9,6,1) on 10-cross validation and 100 iter. The training is slow with cross validation and different size so I may supplement the learning curve in the future.
 * With 6 layer network (9,15,25,12,6,1) 100 iter. The validation score is 0.3853, The train score is 0.3365
@@ -95,6 +96,33 @@
 
 
 ## Part 4: Convolutional Neural Network Regression
+* Memory Error for 1280x1280 image processing (1280x1280x3 ndarray x 3953batch)
+* Solution:
+  - [AWS SageMaker](https://console.aws.amazon.com/sagemaker/home?region=us-east-1#/notebook-instances), [My AWS](https://github.com/unlimitediw/dist-sys-practice/blob/master/Technical_Report.md)
+  - I will not use PCA because it is not aligned and CNN do this job with nonlinear activation layer[PCA1280x1280](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/PCA1280_1280.png), [PCA300x1280](https://github.com/unlimitediw/CitiesPrediction/blob/master/ReportImages/PCA300_1280.png)
+  #
+      def getUSV(X):
+        # covariance matrix formular
+        cov_matrix = X.T.dot(X) / X.shape[0]
+        U, S, V = scipy.linalg.svd(cov_matrix, full_matrices=True, compute_uv=True)
+        return U, S, V
+
+
+      # nice PCA 用新的单位向量去生成新的少量投影数据
+      def projectData(X, U, K):
+          # project only top "K" eigenvectors
+          Ureduced = U[:, :K]
+          z = X.dot(Ureduced)
+          return z
+
+
+      def recoverData(Z, U, K):
+          Ureduced = U[:, :K]
+          Xapprox = Z.dot(Ureduced.T)
+          return Xapprox
+
+  - 
+
 0.91 to 0.935 for test and 0.93 for training data, very good.
 [CNNCoding part](https://github.com/unlimitediw/CitiesPrediction/blob/master/mapToGDP.py)
 [Architecture](https://www.researchgate.net/figure/llustration-of-the-network-architecture-of-VGG-19-model-conv-means-convolution-FC-means_fig2_325137356)
