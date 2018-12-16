@@ -184,7 +184,7 @@ import matplotlib.pyplot as plt
 fig = plt.figure()
 
 correct = 0
-for num,data in enumerate(test_data):
+for num,data in enumerate(train_data):
     gdp = data[1]
     img_data = data[0]
 
@@ -194,5 +194,5 @@ for num,data in enumerate(test_data):
     print(np.argmax(model_out),np.argmax(gdp))
     if np.argmax(model_out) == np.argmax(gdp):
         correct += 1
-print('acc',correct/len(test_data))
+print('acc',correct/len(train_data))
 
