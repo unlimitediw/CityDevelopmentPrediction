@@ -161,4 +161,4 @@ Not start yet.
 * PCA for RGB image
 * Pandas and Numpy skills for data preprocessing
 
-End
+End~
