@@ -6,6 +6,8 @@ import pandas as pd
 from random import shuffle
 from tqdm import tqdm
 np.random.seed(5)
+from os.path import dirname, abspath
+d = dirname(dirname(abspath(__file__)))
 
 '''
 # Hyperparameter
@@ -17,8 +19,8 @@ LR = 0.001
 '''
 # set train indices and test indices in random
 '''
-dir = '../GDPPrediction/ImageSet/RoadMap/'
-labelSet = pd.read_csv('../GDPPrediction/Data/PopulationLabelC.csv').values
+dir = d + '/ImageSet/RoadMap/'
+labelSet = pd.read_csv(d + '\Data\PopulationLabelC.csv').values
 indices = np.random.choice(3953,3953,replace=False)
 train_indices = indices[400:]
 test_indices = indices[:400]
@@ -61,18 +63,18 @@ def process_data():
         if count == 400:
             count = 0
             shuffle(cur_data)
-            np.save('../GDPPrediction/Data/cur_data' + str(id) +'.npy',cur_data)
+            np.save(d + '/Data/cur_data' + str(id) +'.npy',cur_data)
             cur_data = []
             id += 1
     shuffle(cur_data)
-    np.save('../GDPPrediction/Data/cur_data' + str(id) + '.npy', cur_data)
+    np.save(d + '/Data/cur_data' + str(id) + '.npy', cur_data)
 
 #process_data()
 
 Data = np.empty((0,2))
 for i in range(10):
     print(i)
-    cur_data = np.load('../GDPPrediction/Data/cur_data' + str(i) +'.npy')
+    cur_data = np.load(d + '/Data/cur_data' + str(i) +'.npy')
     Data = np.concatenate((Data,cur_data),axis=0)
     print(Data.shape)
 
