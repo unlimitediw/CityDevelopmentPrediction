@@ -63,7 +63,8 @@ def process_data():
         if count == 400:
             count = 0
             shuffle(cur_data)
-            np.save(d + '/Data/cur_data' + str(id) +'.npy',cur_data)
+            np.save(d + '/Data/c'
+                        'ur_data' + str(id) +'.npy',cur_data)
             cur_data = []
             id += 1
     shuffle(cur_data)
