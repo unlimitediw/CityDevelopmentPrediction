@@ -2,8 +2,9 @@ import numpy as np
 import pandas as pd
 from sklearn import svm
 from sklearn.model_selection import train_test_split
-np.random.seed(1)
-
+np.random.seed(3)
+kudo = []
+KUFO =  np.asarray([[790.85,37.13,1,51.88,11,2,193127,35.6623,138.5682]])
 def dataSpecificPro(path):
     datafile = pd.read_csv(path)
 
@@ -13,6 +14,10 @@ def dataSpecificPro(path):
 
     def stdScl(F):
         F = (F - np.average(F))/np.std(F)
+        return F
+
+    def FS(F):
+        F = (F - min(F))/(max(F) - min(F))
         return F
 
     X = X.T
@@ -33,31 +38,56 @@ X, Y = dataSpecificPro('./Data/Final229CitiesData.csv')
 
 
 # Spilt the test set at the start
-X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.2)
-
-# Without KFold
-X_train, X_validation, Y_train, Y_validation = train_test_split(X_train,Y_train,test_size=0.1)
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.1)
+def validation(model,xTest,yTest):
+    hypo = model.predict(xTest)
+    error = 0
+    for i in range(len(xTest)):
+        error += abs(hypo[i] - yTest[i])/yTest[i]
+        #sprint("GDP Predict Result:",float('%.1f' % hypo[i]),"GDP Real Label:",float('%.1f' % yTest[i]))
+    error /= len(xTest)
+    #k = model.predict(xTest)
+    #for i in range(len(xTest)):
+        #print(format(k[i],'.3f'),format(yTest[i],'.3f'),abs(k[i] - yTest[i])/yTest[i])
+    return error
 
 # Loop to find appropriate c value and gamma value
-for i in range(1,1000):
-    c_rbf = 400000
+import KFoldValidation as KF
+dataset = KF.KFold(X_train,Y_train)
+
+averageError = 0
+averageTrainError = 0
+for i in range(1, 11):
+    X_train, Y_train, X_validation, Y_validation = dataset.spilt(i)
+    c_rbf = 90000
     c_poly = 500000
     gamma = np.power(1.3,-5.)
-    rbf = svm.SVR(C= c_rbf,kernel='rbf',gamma = gamma,tol = 1e-7)
+    rbf = svm.SVR(C= c_rbf,kernel='rbf',gamma = gamma,tol = 1e-9)
     poly = svm.SVR(C = c_poly,kernel='poly',gamma = 'auto')
     rbf.fit(X_train,Y_train)
     poly.fit(X_train,Y_train)
-
-    def validation(model,xTest,yTest):
-        error = np.sum(abs(model.predict(xTest) - yTest)/yTest) / len(xTest)
-        k = model.predict(xTest)
-        for i in range(len(xTest)):
-            print(format(k[i],'.3f'),format(yTest[i],'.3f'),abs(k[i] - yTest[i])/yTest[i])
-        return error
-
-    error = validation(rbf,X_test,Y_test)
+    error = validation(rbf, X_validation, Y_validation)
+    trainError = validation(rbf,X_train,Y_train)
+    averageError += error
+    averageTrainError += trainError
     print(error)
-    break
+
+print("averageTrainScore:",averageTrainError / 10)
+print("averageScore:",averageError / 10)
+gamma = np.power(1.3, -5.)
+rbf = svm.SVR(C=90000, kernel='rbf', gamma=gamma, tol=1e-9)
+rbf.fit(X_train, Y_train)
+print('**Test Validation Start!**')
+validation(rbf,X_test,Y_test)
+# Kofu
+
+X = np.asarray([[790.85,37.13,1,51.88,11,2,193127,35.6623,138.5682]])
+Dusseldorf = [[1133,53.82,1,52.56,17,2,598686,51.2251964,6.7737511]]
+
+# GDP = 67393 in 2012
+#print("KofuGDP:",rbf.predict(X))
+#print("testScore:",validation(rbf,X_test,Y_test))
+
 
 # After selecting c and checking with random set of dataset, the error rate is about 50% which is good in some degree
 # Now I will try the regression MLP
