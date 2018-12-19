@@ -44,7 +44,7 @@ def validation(model,xTest,yTest):
     error = 0
     for i in range(len(xTest)):
         error += abs(hypo[i] - yTest[i])/yTest[i]
-        #sprint("GDP Predict Result:",float('%.1f' % hypo[i]),"GDP Real Label:",float('%.1f' % yTest[i]))
+        print("GDP Predict Result:",float('%.1f' % hypo[i]),"GDP Real Label:",float('%.1f' % yTest[i]))
     error /= len(xTest)
     #k = model.predict(xTest)
     #for i in range(len(xTest)):
@@ -60,10 +60,10 @@ averageTrainError = 0
 for i in range(1, 11):
     X_train, Y_train, X_validation, Y_validation = dataset.spilt(i)
     c_rbf = 90000
-    c_poly = 500000
+    c_poly = 1000
     gamma = np.power(1.3,-5.)
     rbf = svm.SVR(C= c_rbf,kernel='rbf',gamma = gamma,tol = 1e-9)
-    poly = svm.SVR(C = c_poly,kernel='poly',gamma = 'auto')
+    poly = svm.SVR(C = c_poly,kernel='poly',gamma = 'auto',tol = 1e-8)
     rbf.fit(X_train,Y_train)
     poly.fit(X_train,Y_train)
     error = validation(rbf, X_validation, Y_validation)
@@ -75,7 +75,7 @@ for i in range(1, 11):
 print("averageTrainScore:",averageTrainError / 10)
 print("averageScore:",averageError / 10)
 gamma = np.power(1.3, -5.)
-rbf = svm.SVR(C=90000, kernel='rbf', gamma=gamma, tol=1e-9)
+rbf = svm.SVR(C=90000, kernel='poly', gamma=gamma, tol=1e-9)
 rbf.fit(X_train, Y_train)
 print('**Test Validation Start!**')
 validation(rbf,X_test,Y_test)

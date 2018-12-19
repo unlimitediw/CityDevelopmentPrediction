@@ -100,9 +100,9 @@ class MLPGenerator:
         elif mode == 'perceptron':
             self.total += 1
             self.error += abs(hyper-y)
-            print(hyper,self.error/self.total,hyper -y)
+            #print(hyper,self.error/self.total,hyper -y)
             #return (y-hyper)**.5 if y-hyper > 0 else -(hyper - y)**.5
-            return ((y-hyper))**0.5 if y -hyper >0 else -((y-hyper))**0.5
+            return ((y-hyper))**2
 
     def gradientFunction(self, z, mode='sigmoid'):
         if mode == 'sigmoid':
@@ -150,7 +150,7 @@ class MLPGenerator:
     def trainNN(self, myLambda=0.):
         Thetas = self.flattenParams(self.genRandThetas(multilier=1))
         result = scipy.optimize.fmin_cg(self.computeCost, x0=Thetas, fprime=self.backPropagate, args=(self.flattenX(self.X), self.Y, myLambda),
-                                        maxiter=1000,
+                                        maxiter=100,
                                         disp=True, full_output=True)
         #print(self.reshapeParams(result[0]))
         return self.reshapeParams(result[0])
