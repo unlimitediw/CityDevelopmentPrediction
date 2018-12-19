@@ -150,7 +150,7 @@ class MLPGenerator:
     def trainNN(self, myLambda=0.):
         Thetas = self.flattenParams(self.genRandThetas(multilier=1))
         result = scipy.optimize.fmin_cg(self.computeCost, x0=Thetas, fprime=self.backPropagate, args=(self.flattenX(self.X), self.Y, myLambda),
-                                        maxiter=1000,
+                                        maxiter=100,
                                         disp=True, full_output=True)
         #print(self.reshapeParams(result[0]))
         return self.reshapeParams(result[0])

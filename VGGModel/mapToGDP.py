@@ -19,11 +19,11 @@ LR = 0.001
 '''
 # set train indices and test indices in random
 '''
-dir = d + '/ImageSet/RoadMap/'
+dir = d + '/ImageSet/Satellite/'
 labelSet = pd.read_csv(d + '\Data\PopulationLabelC.csv').values
 indices = np.random.choice(3953,3953,replace=False)
-train_indices = indices[400:]
-test_indices = indices[:400]
+train_indices = indices[:3553]
+test_indices = indices[3553:]
 
 MODEL_NAME = 'GdpModel-{}-{}.model'.format(LR,'10conv-basic')
 
@@ -113,24 +113,25 @@ network = max_pool_2d(network, 2, strides=2)
 network = conv_2d(network, 256, 3, activation='relu')
 network = conv_2d(network, 256, 3, activation='relu')
 network = conv_2d(network, 256, 3, activation='relu')
-network = conv_2d(network, 256, 3, activation='relu')
+#network = conv_2d(network, 256, 3, activation='relu')
 network = max_pool_2d(network, 2, strides=2)
 
 network = conv_2d(network, 512, 3, activation='relu')
 network = conv_2d(network, 512, 3, activation='relu')
 network = conv_2d(network, 512, 3, activation='relu')
-network = conv_2d(network, 512, 3, activation='relu')
+#network = conv_2d(network, 512, 3, activation='relu')
 network = max_pool_2d(network, 2, strides=2)
 
 network = conv_2d(network, 512, 3, activation='relu')
 network = conv_2d(network, 512, 3, activation='relu')
 network = conv_2d(network, 512, 3, activation='relu')
-network = conv_2d(network, 512, 3, activation='relu')
+#network = conv_2d(network, 512, 3, activation='relu')
 network = max_pool_2d(network, 2, strides=2)
 
 network = fully_connected(network, 4096, activation='relu')
 network = dropout(network, 0.5)
 network = fully_connected(network, 4096, activation='relu')
+
 network = dropout(network, 0.5)
 network = fully_connected(network, 10, activation='softmax')
 
@@ -179,7 +180,7 @@ if os.path.exists('{}.meta'.format(MODEL_NAME)) and 1==1:
     model.load(MODEL_NAME)
 else:
     print(X.shape)
-    model.fit(X, Y, n_epoch=500, shuffle=True,
+    model.fit(X, Y, n_epoch=200, shuffle=True,
               show_metric=True, batch_size=32, snapshot_step=500,
               snapshot_epoch=False, run_id='vgg_oxflowers17')
     model.save(MODEL_NAME)
