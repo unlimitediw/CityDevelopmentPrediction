@@ -12,16 +12,21 @@ np.random.seed(1)
 
 class MLPGenerator:
 
-    def __init__(self, layerShape, mode, X, Y, X_test, Y_test,scale):
+    def __init__(self, layerShape, mode, X, Y, scale):
+        '''
+
+        :param layerShape: A list where you can specialized your NN input layer, hidden layers and output layer.
+        :param mode: 'regression' or 'classification'.
+        :param scale: the scale of initialized hidden layer weight you want.
+        '''
         self.scale = scale
         self.layerShape = layerShape
         self.mode = mode
         self.X = X
         self.Y = Y
-        self.X_test = X_test
-        self.Y_test = Y_test
         self.error = 0
         self.total = 0
+        self.Thetas = None
 
     # data flatten for sklearn
     def flattenParams(self, Thetas):
@@ -72,19 +77,23 @@ class MLPGenerator:
             a = np.insert(a, 0, 1)
             features = a
 
+    def predict(self,x):
+        res = []
+        for i in range(len(x)):
+            res.append(self.propagateForward(x[i],self.Thetas)[-1][0])
+        return np.asarray(res)
     def computeCost(self, Thetas, x, y, myLambda):
         Thetas = self.reshapeParams(Thetas)
         train_size = len(x) // (self.layerShape[0] + 1)
         x = self.reshapeX(x, train_size)
         total_cost = 0.
-        mode = "perceptron"
         for i in range(train_size):
-            if mode == "perceptron":
+            if self.mode == "regression":
                 # be careful
                 hyper = self.propagateForward(x[i].T, Thetas)[-1][0]
             else:
                 hyper = self.propagateForward(x[i].T, Thetas)[-1][1]
-            cost = self.costFunction(hyper, y[i],mode = 'perceptron')
+            cost = self.costFunction(hyper, y[i])
             total_cost += cost
         total_cost = float(total_cost) / train_size
         # in MLP TOTAL regular equals square sum of theta
@@ -94,15 +103,15 @@ class MLPGenerator:
         total_reg *= float(myLambda) / (2 * train_size)
         return total_cost + total_reg
 
-    def costFunction(self, hyper, y, mode='perceptron'):
-        if mode == 'classification':
+    def costFunction(self, hyper, y):
+        if self.mode == 'classification':
             return - (y * np.log(hyper)) - (1 - y) * (np.log(1 - hyper))
-        elif mode == 'perceptron':
+        elif self.mode == 'regression':
             self.total += 1
             self.error += abs(hyper-y)
             #print(hyper,self.error/self.total,hyper -y)
             #return (y-hyper)**.5 if y-hyper > 0 else -(hyper - y)**.5
-            return ((y-hyper))**2
+            return abs((hyper - y)**2)
 
     def gradientFunction(self, z, mode='sigmoid'):
         if mode == 'sigmoid':
@@ -128,10 +137,9 @@ class MLPGenerator:
             for j in range(len(self.layerShape) - 1):
                 zSet.append(temp[j][0])
                 aSet.append(temp[j][1])
-            mode = 'regression'
-            if mode == 'classification':
+            if self.mode == 'classification':
                 deltas = [np.asarray(aSet[-1] - y[i])]
-            elif mode == 'regression':
+            elif self.mode == 'regression':
                 deltas = [np.asarray(zSet[-1] - y[i])]
             for i in range(1, len(aSet) - 1):
                 t = Thetas[len(Thetas) - i].T[1:,:].dot(deltas[i - 1]) * self.gradientFunction(zSet[len(zSet) - i - 1])
@@ -147,10 +155,10 @@ class MLPGenerator:
             DSet[i][:,1:] += (my_lambda / train_size) * np.square(Thetas[i][:,1:])
         return self.flattenParams(DSet).flatten()
 
-    def trainNN(self, myLambda=0.):
-        Thetas = self.flattenParams(self.genRandThetas(multilier=1))
+    def trainNN(self, myLambda=0.02):
+        Thetas = self.flattenParams(self.genRandThetas(multilier=self.scale))
         result = scipy.optimize.fmin_cg(self.computeCost, x0=Thetas, fprime=self.backPropagate, args=(self.flattenX(self.X), self.Y, myLambda),
-                                        maxiter=100,
+                                        maxiter=1000,
                                         disp=True, full_output=True)
         #print(self.reshapeParams(result[0]))
-        return self.reshapeParams(result[0])
+        self.Thetas = self.reshapeParams(result[0])
