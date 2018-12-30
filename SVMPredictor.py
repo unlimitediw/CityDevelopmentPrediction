@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn import svm
 from sklearn.model_selection import train_test_split
-np.random.seed(3)
+np.random.seed(6)
 kudo = []
 KUFO =  np.asarray([[790.85,37.13,1,51.88,11,2,193127,35.6623,138.5682]])
 def dataSpecificPro(path):
@@ -43,7 +43,7 @@ def validation(model,xTest,yTest):
     hypo = model.predict(xTest)
     error = 0
     for i in range(len(xTest)):
-        error += abs(hypo[i] - yTest[i])/yTest[i]
+        error += abs(hypo[i] - yTest[i])/max(yTest[i],hypo[i])
         print("GDP Predict Result:",float('%.1f' % hypo[i]),"GDP Real Label:",float('%.1f' % yTest[i]))
     error /= len(xTest)
     #k = model.predict(xTest)
